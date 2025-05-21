@@ -78,7 +78,7 @@ const HarvestingSummary = () => {
       </div>
       
       {/* After Harvesting */}
-      <div className="bg-harvesting-blue/90 text-white rounded-lg p-6">
+      <div className="bg-harvesting-blue text-white rounded-lg p-6">
         <h3 className="text-lg font-semibold mb-4">After Harvesting</h3>
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div></div>

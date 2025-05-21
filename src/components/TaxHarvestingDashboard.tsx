@@ -20,7 +20,7 @@ const TaxHarvestingDashboard = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-4 max-w-7xl">
         <header className="flex items-center justify-between py-6">
-          <h1 className="text-info-blue text-2xl font-bold">KoinZ</h1>
+          <h1 className="text-info-blue text-2xl font-bold">KoinX</h1>
           {isMobile && (
             <Sheet>
               <SheetTrigger className="p-2">
@@ -40,7 +40,7 @@ const TaxHarvestingDashboard = () => {
         
         <main className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-            <h2 className="text-xl font-semibold mb-1 sm:mb-0">Tax Harvesting</h2>
+            <h1 className="text-xl font-semibold mb-1 sm:mb-0">Tax Harvesting</h1>
             <HowItWorks />
           </div>
           
@@ -52,8 +52,8 @@ const TaxHarvestingDashboard = () => {
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center mr-2">
                 <Info className="w-5 h-5 text-blue-400" />
               </div>
-              <div className="text-sm text-white">
-                Tax loss harvesting is currently not allowed under Indian tax regulations. Please consult your tax advisor before making any decisions.
+              <div className="text-md text-white">
+                Important Notes & Disclaimers
               </div>
               <div className="ml-auto">
                 {infoExpanded ? <ChevronUp className="w-5 h-5 text-blue-300" /> : <ChevronDown className="w-5 h-5 text-blue-300" />} {/* Adjusted chevron color */}

@@ -2,7 +2,11 @@
 import TaxHarvestingDashboard from "../components/TaxHarvestingDashboard";
 
 const Index = () => {
-  return <TaxHarvestingDashboard />;
+  return (
+    <div className="min-h-screen bg-background">
+      <TaxHarvestingDashboard />
+    </div>
+  );
 };
 
 export default Index;

@@ -44,22 +44,22 @@ const TaxHarvestingDashboard = () => {
             <HowItWorks />
           </div>
           
-          <div className="relative bg-card rounded-lg p-4 border border-border">
-            <div 
-              className="flex items-center cursor-pointer" 
+          <div className="relative bg-slate-900 rounded-lg p-4 border border-blue700 ring-1 ring-blue-700">
+            <div
+              className="flex items-center cursor-pointer"
               onClick={() => dispatch(toggleInfoExpanded())}
             >
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center mr-2">
-                <Info className="w-5 h-5 text-info-blue" />
+                <Info className="w-5 h-5 text-blue-400" />
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-white">
                 Tax loss harvesting is currently not allowed under Indian tax regulations. Please consult your tax advisor before making any decisions.
               </div>
               <div className="ml-auto">
-                {infoExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                {infoExpanded ? <ChevronUp className="w-5 h-5 text-blue-300" /> : <ChevronDown className="w-5 h-5 text-blue-300" />} {/* Adjusted chevron color */}
               </div>
             </div>
-            
+
             {infoExpanded && <InfoPanel />}
           </div>
           

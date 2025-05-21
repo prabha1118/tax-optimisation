@@ -33,34 +33,29 @@ const HoldingsTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead>
+    <div className="overflow-x-auto w-full max-w-[100vw] -mx-4 md:mx-0 px-4">
+    <table className="w-full min-w-[800px]">
+      <thead>
           <tr className="border-b border-muted">
-            {!isMobile && (
               <th className="text-left py-3 w-8">
                 <input type="checkbox" className="w-4 h-4" />
               </th>
-            )}
             <th className="text-left py-3 font-medium text-sm">Asset</th>
             <th className="text-right py-3 font-medium text-sm">
               <div>Holdings</div>
               <div className="text-xs text-muted-foreground">Current Market Rate</div>
             </th>
-            {!isMobile && (
               <>
                 <th className="text-right py-3 font-medium text-sm">Total Current Value</th>
                 <th className="text-right py-3 font-medium text-sm">Short-term</th>
                 <th className="text-right py-3 font-medium text-sm">Long-Term</th>
                 <th className="text-right py-3 font-medium text-sm">Amount to Sell</th>
               </>
-            )}
           </tr>
         </thead>
         <tbody>
           {displayedAssets.map((asset) => (
             <tr key={asset.id} className="border-b border-muted">
-              {!isMobile && (
                 <td className="py-4">
                   <input 
                     type="checkbox" 
@@ -69,7 +64,6 @@ const HoldingsTable = () => {
                     onChange={() => dispatch(toggleAssetSelection(asset.id))}
                   />
                 </td>
-              )}
               <td className="py-4">
                 <div className="flex items-center">
                   {getCryptoIcon(asset.symbol)}
@@ -83,7 +77,6 @@ const HoldingsTable = () => {
                 <div>{asset.amount.toFixed(asset.symbol === 'BTC' || asset.symbol === 'ETH' ? 4 : 2)} {asset.symbol}</div>
                 <div className="text-xs text-muted-foreground">$ {asset.rate.toFixed(2)}/{asset.symbol}</div>
               </td>
-              {!isMobile && (
                 <>
                   <td className="text-right py-4 font-medium">
                     $ {asset.totalValue.toLocaleString()}
@@ -104,7 +97,6 @@ const HoldingsTable = () => {
                     {asset.selected ? `${asset.amount.toFixed(4)} ${asset.symbol}` : '-'}
                   </td>
                 </>
-              )}
             </tr>
           ))}
         </tbody>

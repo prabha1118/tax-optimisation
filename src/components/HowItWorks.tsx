@@ -32,11 +32,11 @@ const HowItWorks = ({ isOpen, onClose }: HowItWorksProps = {}) => {
         </a>
       </PopoverTrigger>
       <PopoverContent 
-        className="w-96 bg-card text-foreground p-5 shadow-lg rounded-lg"
+        className="w-96 bg-white text-foreground p-5 shadow-lg rounded-lg"
         align="start"
         sideOffset={5}
       >
-        <p className="text-foreground">
+        <p className="text-black">
           Lorem ipsum dolor sit amet consectetur. Euismod id posuere nibh semper mattis scelerisque tellus. 
           Vel mattis diam duis morbi tellus dui consectetur.
           <a href="#" className="text-info-blue block mt-2 hover:underline">Know More</a>

@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { toggleAssetSelection, toggleShowAll } from '../store/cryptoSlice';
-import { Bitcoin, Ethereum, CircleDollarSign } from 'lucide-react';
+import { Bitcoin, CircleDollarSign } from 'lucide-react';
 
 const HoldingsTable = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const HoldingsTable = () => {
       case 'BTC':
         return <Bitcoin className="w-6 h-6 text-amber-500" />;
       case 'ETH':
-        return <Ethereum className="w-6 h-6 text-blue-500" />;
+        return <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">E</div>;
       case 'USDT':
         return <CircleDollarSign className="w-6 h-6 text-green-500" />;
       case 'MATIC':

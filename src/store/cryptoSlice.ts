@@ -1,11 +1,9 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface CryptoAsset {
   id: string;
   name: string;
   symbol: string;
-  icon: React.FC;
   amount: number;
   rate: number;
   totalValue: number;

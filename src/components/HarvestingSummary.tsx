@@ -1,9 +1,44 @@
-
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
+import { fetchHarvestingData } from '../store/cryptoSlice';
 
 const HarvestingSummary = () => {
-  const { harvestingData } = useSelector((state: RootState) => state.crypto);
+  const dispatch = useDispatch<AppDispatch>();
+  const { harvestingData, harvestingLoading, harvestingError } = useSelector((state: RootState) => state.crypto);
+  
+  useEffect(() => {
+    dispatch(fetchHarvestingData());
+  }, [dispatch]);
+
+  if (harvestingLoading) {
+    return <div className="text-center py-4">Loading harvesting data...</div>;
+  }
+
+  if (harvestingError) {
+    return <div className="text-center py-4 text-red-500">{harvestingError}</div>;
+  }
+
+  const { stcg, ltcg } = harvestingData.capitalGains;
+  const { stcg: selectedStcg, ltcg: selectedLtcg } = harvestingData.selectedGains;
+  
+  // Calculate total capital gains for pre-harvesting
+  const totalCapitalGains = (stcg.profits - stcg.losses) + (ltcg.profits - ltcg.losses);
+  
+  // Calculate adjusted values for after harvesting
+  const adjustedStcgProfits = stcg.profits + selectedStcg.profits;
+  const adjustedStcgLosses = stcg.losses + selectedStcg.losses;
+  const adjustedLtcgProfits = ltcg.profits + selectedLtcg.profits;
+  const adjustedLtcgLosses = ltcg.losses + selectedLtcg.losses;
+  
+  // Calculate total adjusted capital gains
+  const adjustedTotalCapitalGains = 
+    (adjustedStcgProfits - adjustedStcgLosses) + 
+    (adjustedLtcgProfits - adjustedLtcgLosses);
+  
+  // Calculate potential savings (original gains minus adjusted gains)
+  const potentialSavings = totalCapitalGains - adjustedTotalCapitalGains;
+  const showSavings = totalCapitalGains > adjustedTotalCapitalGains;
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -18,26 +53,26 @@ const HarvestingSummary = () => {
         
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div className="text-sm">Profits</div>
-          <div className="text-right text-sm">$ {harvestingData.shortTerm.profits.toLocaleString()}</div>
-          <div className="text-right text-sm">$ {harvestingData.longTerm.profits.toLocaleString()}</div>
+          <div className="text-right text-sm">$ {stcg.profits.toLocaleString()}</div>
+          <div className="text-right text-sm">$ {ltcg.profits.toLocaleString()}</div>
         </div>
         
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div className="text-sm">Losses</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.shortTerm.losses).toLocaleString()}</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.longTerm.losses).toLocaleString()}</div>
+          <div className="text-right text-sm">- $ {Math.abs(stcg.losses).toLocaleString()}</div>
+          <div className="text-right text-sm">- $ {Math.abs(ltcg.losses).toLocaleString()}</div>
         </div>
         
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="text-sm">Net Capital Gains</div>
-          <div className="text-right text-sm">$ {harvestingData.shortTerm.capitalGains.toLocaleString()}</div>
-          <div className="text-right text-sm">$ {harvestingData.longTerm.capitalGains.toLocaleString()}</div>
+          <div className="text-right text-sm">$ {(stcg.profits - stcg.losses).toLocaleString()}</div>
+          <div className="text-right text-sm">$ {(ltcg.profits - ltcg.losses).toLocaleString()}</div>
         </div>
         
         <div className="flex items-center justify-between py-2 border-t border-border">
           <div className="text-base font-semibold">Realised Capital Gains:</div>
           <div className="text-xl font-bold">
-            ${(harvestingData.shortTerm.capitalGains + harvestingData.longTerm.capitalGains).toLocaleString()}
+            ${totalCapitalGains.toLocaleString()}
           </div>
         </div>
       </div>
@@ -53,33 +88,35 @@ const HarvestingSummary = () => {
         
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div className="text-sm">Profits</div>
-          <div className="text-right text-sm">$ {harvestingData.afterHarvesting.shortTerm.profits.toLocaleString()}</div>
-          <div className="text-right text-sm">$ {harvestingData.afterHarvesting.longTerm.profits.toLocaleString()}</div>
+          <div className="text-right text-sm">$ {adjustedStcgProfits.toLocaleString()}</div>
+          <div className="text-right text-sm">$ {adjustedLtcgProfits.toLocaleString()}</div>
         </div>
         
         <div className="grid grid-cols-3 gap-2 mb-2">
           <div className="text-sm">Losses</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.afterHarvesting.shortTerm.losses).toLocaleString()}</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.afterHarvesting.longTerm.losses).toLocaleString()}</div>
+          <div className="text-right text-sm">- $ {Math.abs(adjustedStcgLosses).toLocaleString()}</div>
+          <div className="text-right text-sm">- $ {Math.abs(adjustedLtcgLosses).toLocaleString()}</div>
         </div>
         
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="text-sm">Net Capital Gains</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.afterHarvesting.shortTerm.capitalGains).toLocaleString()}</div>
-          <div className="text-right text-sm">- $ {Math.abs(harvestingData.afterHarvesting.longTerm.capitalGains).toLocaleString()}</div>
+          <div className="text-right text-sm">$ {(adjustedStcgProfits - adjustedStcgLosses).toLocaleString()}</div>
+          <div className="text-right text-sm">$ {(adjustedLtcgProfits - adjustedLtcgLosses).toLocaleString()}</div>
         </div>
         
         <div className="flex items-center justify-between py-2 border-t border-white/20">
           <div className="text-base font-semibold">Effective Capital Gains:</div>
           <div className="text-xl font-bold">
-            - ${Math.abs(harvestingData.afterHarvesting.shortTerm.capitalGains + harvestingData.afterHarvesting.longTerm.capitalGains).toLocaleString()}
+            ${adjustedTotalCapitalGains.toLocaleString()}
           </div>
         </div>
         
-        <div className="flex items-center mt-4 text-sm bg-white/20 p-3 rounded-md">
-          <span className="mr-2">🎉</span>
-          <span>You are going to save upto $ {harvestingData.potentialSavings.toLocaleString()}</span>
-        </div>
+        {showSavings && (
+          <div className="flex items-center mt-4 text-m bg-white/20 p-3 rounded-md">
+            <span className="mr-2">🎉</span>
+            <span>You are going to save $ {potentialSavings.toLocaleString()}</span>
+          </div>
+        )}
       </div>
     </div>
   );

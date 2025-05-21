@@ -15,7 +15,6 @@ const TaxHarvestingDashboard = () => {
   const dispatch = useDispatch();
   const { infoExpanded } = useSelector((state: RootState) => state.crypto);
   const isMobile = useIsMobile();
-  const [howItWorksOpen, setHowItWorksOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -42,17 +41,7 @@ const TaxHarvestingDashboard = () => {
         <main className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
             <h2 className="text-xl font-semibold mb-1 sm:mb-0">Tax Harvesting</h2>
-            <a 
-              href="#" 
-              className="text-info-blue text-sm hover:underline"
-              onClick={(e) => {
-                e.preventDefault();
-                setHowItWorksOpen(true);
-              }}
-            >
-              How it works?
-            </a>
-            <HowItWorks isOpen={howItWorksOpen} onClose={() => setHowItWorksOpen(false)} />
+            <HowItWorks />
           </div>
           
           <div className="relative bg-card rounded-lg p-4 border border-border">

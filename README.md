@@ -13,16 +13,11 @@ A modern, responsive dashboard for cryptocurrency tax harvesting optimization. T
 
 ## Screenshots
 
-```markdown
-![Dashboard Desktop View](./screenshots/desktop-view.png)
-*Desktop View of the Dashboard*
+### Desktop View
+<img src="screenshots/desktop-view.png" alt="Dashboard Desktop View" width="800"/>
 
-![Mobile View](./screenshots/mobile-view.png)
-*Mobile View of the Dashboard*
-
-![Tax Harvesting Section](./screenshots/tax-harvesting.png)
-*Tax Harvesting Calculations*
-```
+### Mobile View
+<img src="screenshots/mobile-view.png" alt="Mobile View" width="400"/>
 
 ## Setup Instructions
 
